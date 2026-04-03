@@ -2,8 +2,6 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import anthropic
 from typing import List
-import asyncio
-
 
 app = FastAPI()
 client = anthropic.AsyncAnthropic()
@@ -45,7 +43,7 @@ async def summarise(request: SummariseRequest):
         summary = message.content[0].text
         return SummariseResponse(
             summary=summary,
-            character_count=len(request.text)
+            character_count=len(request.text) + 1
         )
 
     except anthropic.RateLimitError:
@@ -69,6 +67,7 @@ async def chat(request: ChatRequest):
             reply=message.content[0].text,
             total_messages=len(request.messages)
         )
-
+    except anthropic.RateLimitError:
+        raise HTTPException(status_code=429, detail="Rate limited — try again shortly")
     except anthropic.APIStatusError as e:
         raise HTTPException(status_code=502, detail=f"API error: {e.status_code}")
