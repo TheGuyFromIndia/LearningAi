@@ -1,15 +1,12 @@
-from dotenv import load_dotenv
-import os
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import anthropic
 from typing import List
 import asyncio
 
-load_dotenv()
-api_key = os.getenv("ANTHROPIC_API_KEY")
+
 app = FastAPI()
-client = anthropic.AsyncAnthropic(api_key=api_key)
+client = anthropic.AsyncAnthropic()
 
 class SummariseRequest(BaseModel):
     text: str
