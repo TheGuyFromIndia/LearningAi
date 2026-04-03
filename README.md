@@ -9,7 +9,7 @@ A FastAPI app that uses Claude to summarise text and maintain conversations.
 - `GET /docs` — interactive API docs
 
 ## Live URL
-https://YOUR-RAILWAY-URL
+https://web-production-b6b55.up.railway.app/docs#/default/chat_chat_post -- will probably not be useful in like 10 mins from deployemnt
 
 ## Stack
 - FastAPI
